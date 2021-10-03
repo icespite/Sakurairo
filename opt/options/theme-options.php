@@ -2824,6 +2824,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
           'imgur'  => 'Imgur (https://imgur.com)',
           'smms'  => 'SM.MS (https://sm.ms)',
           'chevereto'  => 'Chevereto (https://chevereto.com)',
+          'lsky'=>__('selfhost image hosting powered by Lsky Pro (https://pic.iqy.ink/index/api.html)','sakurairo_csf')
         ),
         'default'     => 'off'
       ),
@@ -2867,6 +2868,30 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('Chevereto Address','sakurairo_csf'),
         'dependency' => array( 'img_upload_api', '==', 'chevereto' ),
         'desc' => __('Your Chevereto home page address. Please note that there is no "/" at the end, e.g. https://your.cherverto.com','sakurairo_csf'),
+      ),
+
+      array(
+        'id' => 'lsky_url',
+        'type' => 'text',
+        'title' => __('Lsky Pro Address','sakurairo_csf'),
+        'dependency' => array( 'img_upload_api', '==', 'lsky' ),
+        'desc' => __('Your Lsky Pro home page address. Ex: https://pic.iqy.ink/api','sakurairo_csf'),
+      ),
+
+      array(
+        'id' => 'lsky_auth_email',
+        'type' => 'text',
+        'title' => __('Lsky Pro Auth Email','sakurairo_csf'),
+        'dependency' => array( 'img_upload_api', '==', 'lsky' ),
+        'desc' => __('Use annoymous identity if not provided.','sakurairo_csf'),
+      ),
+
+      array(
+        'id' => 'lsky_auth_password',
+        'type' => 'text',
+        'title' => __('Lsky Pro Auth Password','sakurairo_csf'),
+        'dependency' => array( 'img_upload_api', '==', 'lsky' ),
+        'desc' => __('Use annoymous identity if not provided.','sakurairo_csf'),
       ),
 
       array(

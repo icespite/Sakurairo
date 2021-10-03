@@ -194,5 +194,100 @@ class Images
         }
         return $imgurl;
     }
-    
+}
+class LskyProAPI
+{
+    private string $base_path;
+
+    public function __construct()
+    {
+        $base_path = iro_opt('lsky_url');
+        if (str_ends_with($basePath, '/')) {
+            $this->base_path =  $basePath;
+        } else {
+            $this->base_path = $basePath . '/';
+        }
+    }
+
+
+    private function post(string $path, array $args)
+    {
+        return wp_remote_post($this->base_path . $path, $args);
+    }
+    private function get_token(string $username, string $password): array|string
+    {
+        $args = array(
+            'body' => array('email' => $username, 'password' => $password)
+        );
+        $resp = $this->post('token', $args);
+        $resp_status = $resp['response'];
+        if ($resp_status['code'] == '200') {
+            $body = json_decode($resp['body'], true);
+            if ($body['code'] == '200') {
+                return $body['data'];
+            } else {
+                return array('code' => $body['code'], 'message' => $body['msg']);
+            }
+        } else {
+            return $resp_status;
+        }
+    }
+    private function update_token(string $username, string $password)
+    {
+        $token = $this->get_token($username, $password);
+        if (gettype($token) == 'string') {
+            set_transient('_lsky_pro_token', json_encode(array(
+                'username' => $username,
+                'password' => $password,
+                'token' => $token
+            )));
+            return $token;
+        } else {
+            throw $token;
+        }
+    }
+    private function _upload_image($image, $token = '')
+    {
+        $filename = $image['cmt_img_file']['name'];
+        $filedata = $image['cmt_img_file']['tmp_name'];
+        $Boundary = wp_generate_password();
+        $bits = file_get_contents($filedata);
+
+        $args = array(
+            'headers' => "Content-Type: multipart/form-data; boundary=$Boundary\r\n\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97"
+                . ($token == '' ? '' : "\r\n\r\ntoken=$token"),
+            'body' => "--$Boundary\r\nContent-Disposition: form-data; name=\"image\"; filename=\"$filename\"\r\n\r\n$bits\r\n\r\n--$Boundary--"
+        );
+
+        $resp = $this->post('upload', $args);
+
+        return $resp['body'];
+    }
+    public function upload_image($image)
+    {
+        try {
+            $token = '';
+            $username = iro_opt('lsky_auth_email');
+            if ($username) {
+                $password = iro_opt('lsky_auth_password');
+                $dbcached = get_transient('_lsky_pro_token');
+                if ($dbcached) {
+                    $cached = json_decode($dbcached, true);
+                    if ($username == $cached['username'] && $password == $cached['password']) {
+                        $token = $cached['token'];
+                    } else {
+                        //token needs update
+                        $token = $this->update_token($username, $password);
+                    }
+                } else {
+                    //token not cached
+                    $token = $this->update_token($username, $password);
+                }
+            }
+        } catch (\Throwable $th) {
+            return $th;
+        }
+        return $this->_upload_image($image, $token);
+        //TODO:规范返回
+    }
 }
