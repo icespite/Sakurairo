@@ -2061,3 +2061,21 @@ if (iro_opt('captcha_select') === 'iro_captcha') {
     }
     add_filter('authenticate', 'checkVaptchaAction', 20, 3);
 }
+
+add_filter('the_content', 'fancybox1');
+function fancybox1 ($content){
+    global $post;
+    $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\/a>/i";
+    $replacement = '<a$1href=$2$3.$4$5 data-fancybox="images" $6>$7</a>';
+    $content = preg_replace($pattern, $replacement, $content);
+    return $content;
+}
+
+add_filter('the_content', 'fancybox2');
+function fancybox2 ($content){
+    global $post;
+    $pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>/i";
+    $replacement = '<img$1data-src=$2$3.$4$5 data-fancybox="images" $6>';
+    $content = preg_replace($pattern, $replacement, $content);
+    return $content;
+}

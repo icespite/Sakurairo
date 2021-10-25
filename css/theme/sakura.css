@@ -87,8 +87,8 @@
 }
 
 .entry-content code {
-    background: rgba(254, 250, 199, 1);
-    color: #E67474;
+    background: rgba(213, 216, 220 ,1);
+    color: #2C3E50;
     word-break: break-word;
     font-family: 'Source Code Pro', monospace, Helvetica, Tahoma, Arial, STXihei, "STHeiti Light", "Microsoft YaHei", sans-serif;
     padding: 2px;
@@ -112,7 +112,7 @@ h1.entry-title {
 }
 
 .entry-content p {
-    color: #797979
+    /* color: #797979; */
 }
 
 .entry-content p {

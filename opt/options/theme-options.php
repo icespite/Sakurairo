@@ -409,7 +409,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'id'     => 'google_fonts_api',
         'type'   => 'text',
         'title'  => __('Google Fonts Api Link','sakurairo_csf'),
-        'default' => 'fonts.maho.cc'
+        'default' => 'fonts.loli.net'
       ),
 
       array(
