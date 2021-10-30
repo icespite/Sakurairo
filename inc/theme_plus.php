@@ -439,21 +439,25 @@ function header_user_menu(){
             <a href="<?php bloginfo('url'); ?>/wp-admin/post-new.php" target="_blank"><?php _e('New post','sakurairo')/*撰写文章*/?></a>
           <?php } ?>
           <a href="<?php bloginfo('url'); ?>/wp-admin/profile.php" target="_blank"><?php _e('Profile','sakurairo')/*个人资料*/?></a>
-          <a href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" target="_top"><?php _e('Sign out','sakurairo')/*退出登录*/?></a>
+          <a href="<?php echo wp_logout_url(get_bloginfo('url')); ?>" target="_top" data-no-pjax><?php _e('Sign out','sakurairo')/*退出登录*/?></a>
         </div>
       </div>
     </div>
   <?php
   }else{ 
     $ava = iro_opt('unlisted_avatar');
-    $login_url = iro_opt('exlogin_url') ? iro_opt('exlogin_url') : get_bloginfo('url').'/wp-login.php';
+    global $wp;
+    //https://wordpress.stackexchange.com/questions/274569/how-to-get-url-of-current-page-displayed
+    //可以测试一下对不同的固定链接的兼容性
+    $login_url = iro_opt('exlogin_url') ? iro_opt('exlogin_url') : wp_login_url(add_query_arg( $wp->query_vars, home_url( $wp->request ) ));
   ?>
   <div class="header-user-avatar">
     <a href="<?php echo $login_url; ?>">
       <img class="faa-shake animated-hover" src="<?php echo $ava; ?>" width="30" height="30">
     </a>
     <div class="header-user-menu">
- <div class="herder-user-name no-logged">  <a href="<?php echo $login_url; ?>" target="_blank" style="font-weight:bold;text-decoration:none">登录</a>  
+ <div class="herder-user-name no-logged">  
+   <a id="login-link" href="<?php echo $login_url; ?>" data-no-pjax style="font-weight:bold;text-decoration:none">登录</a>  
       </div>
     </div>
   </div>
