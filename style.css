@@ -6,8 +6,8 @@ Theme URI: https://github.com/mirai-mamori/Sakurairo
 Author: Created by Fuukei
 Author URI: https://iro.tw/
 Description: A colorful, Easy-to-use, Perfect Experience, and Powerful Customizable WordPress Theme (Based on Theme Sakura)
-Version: 2.2.12
-Tested up to: 5.8
+Version: 2.3.0
+Tested up to: 5.8.2
 Requires at least: 5.5
 Requires PHP: 7.1
 License: GNU General Public License v2 or later
@@ -1618,7 +1618,7 @@ i.iconfont.hotpost {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
-    height: 85px;
+    height:6em;
     overflow: hidden
 }
 
@@ -3723,7 +3723,7 @@ li.feature-2 {
 }
 
 .headertop.filter-grid::before {
-    background-image: url(https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.8.2/vision/basic/grid.png)
+    background-image: url(https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.9.0/vision/basic/grid.png)
 }
 
 .headertop.filter-dot::before {
@@ -3732,7 +3732,7 @@ li.feature-2 {
 
 @media (max-width:860px) {
     .headertop.filter-dot::before {
-        background-image: url(https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.8.2/vision/basic/grid.png)
+        background-image: url(https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.9.0/vision/basic/grid.png)
     }
 }
 
@@ -7253,7 +7253,6 @@ li>ol {
     background-color: rgba(255, 255, 255, 0);
     transform: translateX(0);
     right: calc((100% - 1040px - 250px)/ 2);
-    position: absolute !important;
     top: 480px;
     position: absolute;
     padding-top: 10px;
@@ -8370,7 +8369,7 @@ td.hljs-ln-numbers {
     height:100%;
     object-fit: cover;
 }
-#coverVideo-btn {
+.coverVideo-btn {
     all: initial;
     display: inline-block;
     width: 36px;
@@ -8384,16 +8383,15 @@ td.hljs-ln-numbers {
     text-align: center;
     border-radius: 50%;
 }
-#coverVideo-btn:hover {
+.coverVideo-btn:hover {
     background: #ddd;
     color: black;
 }
-h1[id*=toc-head]::before,
-h2[id*=toc-head]::before,
-h3[id*=toc-head]::before,
-h4[id*=toc-head]::before,
-h5[id*=toc-head]::before,
-h6[id*=toc-head]::before {
+h1::before,
+h2::before,
+h3::before,
+h4::before,
+h5::before {
     display: block;
     content: " ";
     height: 80px;

@@ -322,7 +322,17 @@ function sakura_scripts()
             "上传失败！\n文件名=> {0}\ncode=> {1}\n{2}" => __("Upload failed!\nFile Name=> {0}\ncode=> {1}\n{2}", 'sakurairo'),
             '上传失败，请重试.' => __('Upload failed, please retry.', 'sakurairo'),
             '页面加载出错了 HTTP {0}' => __("Page Load failed. HTTP {0}", 'sakurairo'),
-            '很高兴你翻到这里，但是真的没有了...' => __("Glad you come, but we've got nothing left.", 'sakurairo')
+            '很高兴你翻到这里，但是真的没有了...' => __("Glad you come, but we've got nothing left.", 'sakurairo'),
+            "文章" => __("Post", 'sakurairo'),
+            "标签" => __("Tag", 'sakurairo'),
+            "目录" => __("Category", 'sakurairo'),
+            "页面" => __("Page", 'sakurairo'),
+            "评论" => __("Comment", 'sakurairo'),
+            "已暂停..." => __("Paused...", 'sakurairo'),
+            "正在载入视频 ..." => __("Loading Video...", 'sakurairo'),
+            "将从网络加载字体，流量请注意" => __("Downloading fonts, be aware of your data usage.", 'sakurairo'),
+            "您真的要设为私密吗？" => __("Are you sure you want set it private?", 'sakurairo'),
+            "您之前已设过私密评论" => __("You had set private comment before", 'sakurairo')
         ));
     }
 }
@@ -751,7 +761,7 @@ add_filter("mce_buttons_3", "enable_more_buttons");
 function download($atts, $content = null)
 {
     return '<a class="download" href="' . $content . '" rel="external"
-target="_blank" title="下载地址">
+target="_blank" title="'.__("Download Link","sakurairo").'">
 <span><i class="iconfont down icon-pulldown"></i>Download</span></a>';
 }
 add_shortcode("download", "download");
@@ -799,7 +809,7 @@ add_filter('login_headerurl', 'custom_loginlogo_url');
 //Login Page Footer
 function custom_html()
 {
-    $loginbg = iro_opt('login_background') ?: 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/login_background.jpg'; ?>
+    $loginbg = iro_opt('login_background') ?: 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/login_background.jpg'; ?>
         <script type="text/javascript">
             document.body.insertAdjacentHTML("afterbegin", "<div class=\"loading\"><img src=\"https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/basic/login_loading.gif\" width=\"58\" height=\"10\"></div>");
             document.head.insertAdjacentHTML("afterbegin", "<style>.show{opacity:1;}.hide{opacity:0;transition: opacity 400ms;}</style>");
@@ -941,7 +951,7 @@ function comment_mail_notify($comment_id)
     </div>
 ';
         $message = convert_smilies($message);
-        $message = str_replace('{{', '<img src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.8.2/vision/smilies/bilipng/emoji_', $message);
+        $message = str_replace('{{', '<img src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.9.0/vision/smilies/bilipng/emoji_', $message);
         $message = str_replace('}}', '.png" alt="emoji" style="height: 2em; max-height: 2em;">', $message);
 
         $message = str_replace('{UPLOAD}', 'https://i.loli.net/', $message);
@@ -2059,14 +2069,19 @@ if (iro_opt('captcha_select') === 'iro_captcha') {
             $ip = get_the_user_ip();
             $vaptcha = new Sakura\API\Vaptcha;
             $response = $vaptcha->checkVaptcha($url, $token, $ip);
-            if ($response->msg && $response->msg === 'success') {
+            if ($response->msg && $response->success && $response->score) {
                 if ($response->success === 1 && $response->score >= 70) {
                     return $user;
+                } else if ($response->success === 0) {
+                    $errorcode = $response->msg;
+                    return new WP_Error('prooffail', '<strong>错误</strong>：' . $errorcode);
                 } else {
                     return new WP_Error('prooffail', '<strong>错误</strong>：人机验证失败');
                 }
-            } else {
+            } else if (is_string($response)) {
                 return new WP_Error('prooffail', '<strong>错误</strong>：' . $response);
+            } else {
+                return new WP_Error('prooffail', '<strong>错误</strong>：未知错误');
             }
         } else {
             return new WP_Error('prooffail', '<strong>错误</strong>：请先进行人机验证');
@@ -2083,7 +2098,7 @@ function should_show_title():bool{
     $use_as_thumb = get_post_meta($id, 'use_as_thumb', true); //'true','only',(default)
     return !iro_opt('patternimg') 
     || !get_post_thumbnail_id($id) 
-    && $use_as_thumb == 'only' && !get_post_meta($id, 'video_cover', true);
+    && $use_as_thumb != 'true' && !get_post_meta($id, 'video_cover', true);
 }
 
 add_filter('the_content', 'fancybox1');

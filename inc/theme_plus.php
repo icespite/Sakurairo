@@ -354,7 +354,9 @@ function the_video_headPattern(bool $isHls = false)
             $header = 'single-header';
             //$ava = iro_opt('personal_avatar', '') ? iro_opt('personal_avatar', '') : get_avatar_url(get_the_author_meta('user_email'));
             $edit_this_post_link = get_edit_html();
-            $t .= the_title('<h1 class="entry-title">', '<button id="coverVideo-btn" class=".constant-width-to-height-ratio" onclick="coverVideo()"><i class="fa fa-pause" aria-hidden="true"></i></button></h1>', false);
+            $btn_playControl = '<button id="cv-pc" class="coverVideo-btn" onclick="coverVideo()"><i class="fa fa-pause" aria-hidden="true"></i></button>';
+/*             $btn_volumeControl = '<button id="cv-vc" class="coverVideo-btn" onclick="coverVideoMute()"><i class="fa fa-volume-off" aria-hidden="true"></i></button>';
+ */            $t .= the_title('<h1 class="entry-title">', $btn_playControl./* $btn_volumeControl. */'</h1>', false);
             $t .= '<p class="entry-census"><span><a href="' 
             . esc_url(get_author_posts_url(get_the_author_meta('ID'), get_the_author_meta('user_nicename'))) . '">' 
             . get_avatar(get_the_author_meta('ID'), 64) . '</a></span><span><a href="' 
@@ -384,11 +386,11 @@ function the_video_headPattern(bool $isHls = false)
                 <?php
                 if ($isHls) {
                 ?>
-                    <video loop playsinline id="coverVideo" class="hls" <?php echo $video_poster_attr; ?> data-src="<?php echo $video_cover; ?>"></video>
+                    <video loop playsinline muted id="coverVideo" class="hls" <?php echo $video_poster_attr; ?> data-src="<?php echo $video_cover; ?>"></video>
                 <?php
                 } else {
                 ?>
-                    <video autoplay loop playsinline id="coverVideo" class="normal-cover-video" <?php echo $video_poster_attr; ?>>
+                    <video autoplay loop playsinline muted id="coverVideo" class="normal-cover-video" <?php echo $video_poster_attr; ?>>
                         <source src="<?php echo $video_cover; ?>" type="video/mp4">
                         <?php _e('Your browser does not support HTML5 video.','sakurairo')?>
                     </video>
@@ -418,7 +420,8 @@ function header_user_menu(){
     <div class="header-user-avatar">
       <img class="faa-spin animated-hover" src="<?php echo get_avatar_url( $current_user->ID, 64 );/*$ava;*/ ?>" width="30" height="30">
       <div class="header-user-menu">
-        <div class="herder-user-name">当前已登录 
+        <div class="herder-user-name">
+          <?php _e("Signed in as","sakurairo")?> 
           <div class="herder-user-name-u"><?php echo $current_user->display_name; ?></div>
         </div>
         <div class="user-menu-option">
@@ -445,7 +448,7 @@ function header_user_menu(){
     </a>
     <div class="header-user-menu">
  <div class="herder-user-name no-logged">  
-   <a id="login-link" href="<?php echo $login_url; ?>" data-no-pjax style="font-weight:bold;text-decoration:none">登录</a>  
+   <a id="login-link" href="<?php echo $login_url; ?>" data-no-pjax style="font-weight:bold;text-decoration:none"><?php _e('Log in','sakurairo')/*登录*/?></a>  
       </div>
     </div>
   </div>

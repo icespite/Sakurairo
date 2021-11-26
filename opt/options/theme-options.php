@@ -2055,7 +2055,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         ),
         'desc' => __('Best width 820px, best height 67px','sakurairo_csf'),
         'library' => 'image',
-        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/announcement_bg.jpg'
+        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/announcement_bg.jpg'
       ),
 
       array(
@@ -2296,9 +2296,9 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
           'link1' => '',
           'link2' => '',
           'link3' => '',
-          'img1'  => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/exhibition1.jpg',
-          'img2'  => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/exhibition2.jpg',
-          'img3' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/exhibition3.jpg',
+          'img1'  => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/exhibition1.jpg',
+          'img2'  => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/exhibition2.jpg',
+          'img3' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/exhibition3.jpg',
           'title1' => 'アンコール',
           'title2' => 'ハルジオン',
           'title3' => 'かいぶつ',
@@ -2883,7 +2883,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('Mail Template Featured Image','sakurairo_csf'),
         'desc' => __('Set the background image of your reply email','sakurairo_csf'),
         'library' => 'image',
-        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/mail_head.jpg'
+        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/mail_head.jpg'
       ),
 
       array(
@@ -2936,7 +2936,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('Login Screen Background Image','sakurairo_csf'),
         'desc' => __('Set your login screen background image, leave this option blank to show the default','sakurairo_csf'),
         'library'      => 'image',
-        'default'     => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/login_background.jpg'
+        'default'     => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/login_background.jpg'
       ),
 
       array(
@@ -2953,7 +2953,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('Login Screen Logo','sakurairo_csf'),
         'desc' => __('Set your login screen Logo','sakurairo_csf'),
         'library' => 'image',
-        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/login_logo.png'
+        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/login_logo.png'
       ),
 
       array(
@@ -2975,7 +2975,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('Dashboard Background Image','sakurairo_csf'),
         'desc' => __('Set your dashboard background image, leave this option blank to show white background','sakurairo_csf'),
         'library' => 'image',
-        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/admin_background.jpg'
+        'default' => 'https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/tsubame/admin_background.jpeg'
       ),
 
       array(
@@ -2994,7 +2994,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'type' => 'color',
         'title' => __('Dashboard Primary Menu Color','sakurairo_csf'),
         'desc' => __('Customize the colors','sakurairo_csf'),
-        'default' => '#88cfef'
+        'default' => '#8acdea'
       ),  
 
       array(
@@ -3002,7 +3002,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'type' => 'color',
         'title' => __('Dashboard Secondary Menu Color','sakurairo_csf'),
         'desc' => __('Customize the colors','sakurairo_csf'),
-        'default' => '#67c4ef'
+        'default' => '#6ec5ea'
       ),  
 
       array(
@@ -3010,7 +3010,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'type' => 'color',
         'title' => __('Dashboard Emphasis Color','sakurairo_csf'),
         'desc' => __('Customize the colors','sakurairo_csf'),
-        'default' => '#342a29'
+        'default' => '#f9bcae'
       ),  
 
       array(
@@ -3018,7 +3018,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'type' => 'color',
         'title' => __('Dashboard Button Color','sakurairo_csf'),
         'desc' => __('Customize the colors','sakurairo_csf'),
-        'default' => '#d1976d'
+        'default' => '#f4c57f'
       ),  
 
       array(
@@ -3331,7 +3331,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
 
       array(
         'type'    => 'content',
-        'content' => __('<img src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/hyouryulogo.gif"  alt="Theme Information" />','sakurairo_csf'),
+        'content' => __('<img src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@0.9.0/vision/tsubame/tsubamelogo.gif"  alt="Theme Information" />','sakurairo_csf'),
       ),
 
       array(
