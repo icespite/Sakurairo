@@ -1648,8 +1648,9 @@ function change_avatar($avatar)
 // default feature image
 function DEFAULT_FEATURE_IMAGE():string
 {
-    $_api_url = rest_url('sakura/v1/image/feature');
-    return $_api_url . (preg_match('/index.php\?/i', $_api_url) ? '&' : '?') . rand(1, 1000);
+    // $_api_url = rest_url('sakura/v1/image/feature');
+    // return $_api_url . (preg_match('/index.php\?/i', $_api_url) ? '&' : '?') . rand(1, 1000);
+    return "https://cdnpicture.icespite.top/static/banner-final.jpg";
 }
 
 //评论回复
