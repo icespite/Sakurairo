@@ -1119,10 +1119,10 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('Sakura Falling Effects','sakurairo_csf'),
         'options' => array(
           'off' => __('Off','sakurairo_csf'),
-          'sakura-native' => __('Native Quantity','sakurairo_csf'),
-          'sakura-quarter' => __('Quarter Quantity','sakurairo_csf'),
-          'sakura-half' => __('Half Quantity','sakurairo_csf'),
-          'sakura-less' => __('Less Quantity','sakurairo_csf'),
+          'native' => __('Native Quantity','sakurairo_csf'),
+          'quarter' => __('Quarter Quantity','sakurairo_csf'),
+          'half' => __('Half Quantity','sakurairo_csf'),
+          'less' => __('Less Quantity','sakurairo_csf'),
         ),
         'default' => 'off'
       ),
@@ -1603,7 +1603,7 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
       array(
         'type' => 'submessage',
         'style' => 'info',
-        'content' => sprintf(__('如果你选择使用Webp优化随机图片 / If you choose to use Webp to optimize random images, 点击 / Click <a href="%s">这里 / here </a>来更新 Manifest 路径 / to update the Manifest path', 'sakurairo', 'sakurairo_csf'), rest_url('sakura/v1/ database/update')), 
+        'content' => sprintf(__('如果你选择使用Webp优化随机图片 / If you choose to use Webp to optimize random images, 点击 / Click <a href="%s">这里 / here </a>来更新 Manifest 路径 / to update the Manifest path', 'sakurairo', 'sakurairo_csf'), rest_url('sakura/v1/database/update')), 
       ),
 
       array(
@@ -3183,9 +3183,9 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
         'title' => __('LightGallery Lightbox Effect Options','sakurairo_csf'),
         'dependency' => array( 'lightgallery', '==', 'true' ),
         'default' => '{
-          plugins:["hash","zoom"],
-          supportLegacyBrowser:false,
-          selector:"figure > img",
+          "plugins":["hash","zoom"],
+          "supportLegacyBrowser":false,
+          "selector":"figure > img"
         }'
       ), 
 
@@ -3396,19 +3396,26 @@ if( class_exists( 'Sakurairo_CSF' ) ) {
       array(
         'id' => 'local_global_library',
         'type' => 'switcher',
-        'title' => __('Localize the Frontend Library','sakurairo_csf'),
-        'label' => __('The frontend library will not use jsDelivr CDN after turning it on','sakurairo_csf'),
+        'title' => __('Provide Shared Library locally','sakurairo_csf'),
+        'label' => __('Shared library will be provided via jsDelivr CDN by default.','sakurairo_csf'),
         'default' => false
       ),
 
       array(
         'id' => 'local_application_library',
         'type' => 'switcher',
-        'title' => __('Localize JS/CSS Files','sakurairo_csf'),
-        'label' => __('Enabled by default, some JS files and CSS files do not use jsDelivr CDN','sakurairo_csf'),
+        'title' => __('Provide Critical Frontend Resource locally','sakurairo_csf'),
+        'label' => __('Critical frontend resource will be provided locally by default. Critical resources are those resources whose loading performance will have a significant impact on the user experience','sakurairo_csf'),
         'default' => true
       ),
-      
+
+      array(
+        'id' => 'vision_resource_basepath',
+        'type' => 'text',
+        'title' => __('Vision Resource Basepath','sakurairo_csf'),
+        'default' => "https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/"
+      ),
+
       array(
         'type' => 'subheading',
         'content' => __('Theme Contributors','sakurairo_csf'),
