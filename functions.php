@@ -2057,7 +2057,7 @@ function should_show_title():bool{
     && $use_as_thumb != 'true' && !get_post_meta($id, 'video_cover', true);
 }
 
-add_filter('the_content', 'fancybox1');
+// add_filter('the_content', 'fancybox1');
 function fancybox1 ($content){
     global $post;
     $pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png|swf)('|\")(.*?)>(.*?)<\/a>/i";
