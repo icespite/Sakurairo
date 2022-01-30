@@ -9,20 +9,19 @@
  */
 
 ?>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes();
+add_action('wp_head',function(){
+        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('wp-block-library-theme');
+        wp_dequeue_style('entry-content');
+},5);
+?>>
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<?php echo iro_opt('favicon_link', ''); ?>" />
-    <title itemprop="name"><?php global $page, $paged;
-                            wp_title('-', true, 'right');
-                            bloginfo('name');
-                            $site_description = get_bloginfo('description', 'display');
-                            if ($site_description && (is_home() || is_front_page())) echo " - $site_description";
-                            if ($paged >= 2 || $page >= 2) echo ' - ' . sprintf(__('page %s'), max($paged, $page));/*第 %s 页*/ ?>
-    </title>
-    <link type="text/css" media="all" href="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/static/css/basic/404_lib.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= $shared_lib_basepath ?>/css/404_lib.css" type="text/css" media="all"/>
     <?php wp_head(); ?>
     <?php
     /* <script>
@@ -63,15 +62,5 @@ if (!no_report) httpGet(report_url);
             </form>
         </div>
     </section>
-    <?php
-    $base_path = "";
-    if (iro_opt('local_application_library')) {
-        $base_path = get_template_directory_uri();
-    } else {
-        $base_path = 'https://cdn.jsdelivr.net/gh/mirai-mamori/Sakurairo@' . IRO_VERSION;
-    }
-    ?>
-    <script src="<?php echo $base_path . '/js/anf-3187709c.js' ?>" type="text/javascript"></script>
-    <script src="<?php echo $base_path . '/js/anf-b84330fe.js' ?>" type="text/javascript"></script>
-
+    <script src="<?php echo $shared_lib_basepath . '/js/anf.js' ?>" type="text/javascript"></script>
 </body>

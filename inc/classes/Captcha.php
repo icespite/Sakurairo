@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+//TODO: 打个标记 下次一定改静态类（
 namespace Sakura\API;
 
 class Captcha
@@ -90,7 +90,7 @@ class Captcha
         }
 
         //添加干扰点
-        for ($i = 1; $i <= 180 * 40 * 0.02; $i++) {
+        for ($i = 1; $i <= 144; $i++) {
             $pixelcolor = imagecolorallocate($img, mt_rand(100, 150), mt_rand(0, 120), mt_rand(0, 255));
             imagesetpixel($img, mt_rand(0, 179), mt_rand(0, 39), $pixelcolor);
         }
@@ -128,24 +128,24 @@ class Captcha
         $temp1 = $temp - 60;
         if (!isset($timestamp) || !isset($id) || !preg_match('/^[\w$.\/]+$/', $id) || !ctype_digit($timestamp)) {
             $code = 3;
-            $msg = '非法请求';
+            $msg = __('Bad Request.',"sakurairo");//非法请求
         } elseif (!$captcha || isset($captcha[5]) || !isset($captcha[4])) {
             $code = 3;
-            $msg = '请输入正确的验证码!';
+            $msg = __("Look like you forgot to enter the captcha.","sakurairo");//请输入正确的验证码!
         } elseif ($timestamp < $temp1) {
             $code = 2;
-            $msg = '超时!';
+            $msg =  __("Captcha timeout.","sakurairo");//超时!
         } elseif ($timestamp >= $temp1 && $timestamp <= $temp) {
             if ($this->verify_captcha($captcha, $id) == true) {
                 $code = 5;
-                $msg = '验证码正确!';
+                $msg = __("Captcha check passed.","sakurairo");//'验证码正确!'
             } else {
                 $code = 1;
-                $msg = '验证码错误!';
+                $msg = __("Captcha incorrect.","sakurairo");//'验证码错误!'
             }
         } else {
             $code = 1;
-            $msg = '错误!';
+            $msg = __("An error has occurred.","sakurairo");//'错误!'
         }
         return [
             'code' => $code,

@@ -23,7 +23,7 @@ if ( ! class_exists( 'CSF_Options' ) ) {
     public $args         = array(
 
       // framework title
-      'framework_title'         => '<img src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/vision/hyouryu/login_logo.png" style="width:50px;height:50px;transform:translateY(32%);margin-right: 13px;">iro 主题设置 <small> / Theme Options / テーマの設定</small>',
+      'framework_title'         => '<img src="https://cdn.jsdelivr.net/gh/Fuukei/Sakurairo_Vision@latest/series/login_logo.png" style="width:50px;height:50px;transform:translateY(32%);margin-right: 13px;">iro 主题设置 <small> / Theme Options / テーマの設定</small>',
       'framework_class'         => '',
 
       // menu settings
@@ -186,7 +186,11 @@ if ( ! class_exists( 'CSF_Options' ) ) {
     // add admin bar menu
     public function add_admin_bar_menu( $wp_admin_bar ) {
 
-      if( is_network_admin() && ( $this->args['database'] !== 'network' || $this->args['show_in_network'] !== true ) ) {
+      if ( ! current_user_can( $this->args['menu_capability'] ) ) {
+        return;
+      }
+
+      if ( is_network_admin() && ( $this->args['database'] !== 'network' || $this->args['show_in_network'] !== true ) ) {
         return;
       }
 
@@ -490,7 +494,7 @@ if ( ! class_exists( 'CSF_Options' ) ) {
     }
 
     public function add_admin_footer_text() {
-      $default = 'Sakurairo 使用 Fuukei <a href="https://github.com/Fuukei/Sakurairo_CSF" target="_blank">CSF</a> 设置框架，感谢你的使用 0v0 ';
+      $default = 'Sakurairo 使用 Fuukei 定制的 <a href="https://github.com/Fuukei/Sakurairo_CSF" target="_blank">CSF</a> 设置框架，感谢你的使用 0v0 ';
       echo ( ! empty( $this->args['footer_credit'] ) ) ? $this->args['footer_credit'] : $default;
     }
 

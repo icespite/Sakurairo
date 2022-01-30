@@ -4,5 +4,3 @@
  * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
  */
-
-//! build de980df 2021/10/29

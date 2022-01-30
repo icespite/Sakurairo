@@ -28,20 +28,10 @@ $mashiro_logo = iro_opt('mashiro_logo');
 <html <?php language_attributes(); ?>>
 
 <head>
-	<link rel="stylesheet" href="https://<?php echo iro_opt('google_fonts_api'); ?>/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC<?php echo iro_opt('google_fonts_add'); ?>" media="all">
-	<meta name="theme-color" content="<?php echo iro_opt('theme_skin_matching')?>" media="(prefers-color-scheme: light)">
-	<meta name="theme-color" content="<?php echo iro_opt('theme_skin_dark')?>" media="(prefers-color-scheme: dark)">
-
+	<meta name="theme-color">
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-	<title itemprop="name"><?php global $page, $paged;
-							wp_title('-', true, 'right');
-							bloginfo('name');
-							$site_description = get_bloginfo('description', 'display');
-							if ($site_description && (is_home() || is_front_page())) echo " - $site_description";
-							if ($paged >= 2 || $page >= 2) echo ' - ' . sprintf(__('page %s ', 'sakurairo'), max($paged, $page));/*第 %s 页*/ ?>
-	</title>
 	<?php
 	if (iro_opt('iro_meta') == true) {
 		$keywords = '';
@@ -71,7 +61,19 @@ $mashiro_logo = iro_opt('mashiro_logo');
 	<?php } ?>
 	<link rel="shortcut icon" href="<?php echo iro_opt('favicon_link', ''); ?>" />
 	<meta http-equiv="x-dns-prefetch-control" content="on">
+	<?php
+	if (is_home()) {
+		//预载资源
+		//id需要一致，使pjax可以完成自动替换
+		global $core_lib_basepath;
+	?>
+		<link id="entry-content-css" rel="preload" as="style" href="<?= $core_lib_basepath . '/css/theme/' . (iro_opt('entry_content_style') == 'sakurairo' ? 'sakura' : 'github') . '.css?ver=' . IRO_VERSION ?>" />
+		<link rel="preload" as="script" href="<?= $core_lib_basepath . '/js/page.js?ver=' . IRO_VERSION ?>" />
+	<?php
+	}
+	?>
 	<?php wp_head(); ?>
+	<link rel="stylesheet" href="https://<?php echo iro_opt('gfonts_api', 'fonts.loli.net'); ?>/css?family=Merriweather+Sans|Noto+Serif|Noto+Serif+SC|Source+Code+Pro|Ubuntu:400,700<?php echo iro_opt('gfonts_add_name'); ?>&display=swap" media="all">
 	<script type="text/javascript">
 		if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
 			alert('朋友，IE浏览器未适配哦~\n如果是 360、QQ 等双核浏览器，请关闭 IE 模式！');
@@ -82,10 +84,7 @@ $mashiro_logo = iro_opt('mashiro_logo');
 		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo iro_opt('google_analytics_id', ''); ?>"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
-
-			function gtag() {
-				dataLayer.push(arguments)
-			}
+			function gtag() {dataLayer.push(arguments)}
 			gtag('js', new Date());
 			gtag('config', '<?php echo iro_opt('google_analytics_id', ''); ?>');
 		</script>
@@ -114,9 +113,9 @@ $mashiro_logo = iro_opt('mashiro_logo');
 						<span class="logolink moe-mashiro">
 							<a href="<?php bloginfo('url'); ?>">
 								<ruby>
-									<span class="sakuraso" style="font-family: '<?php echo $mashiro_logo['font_name']; ?>', 'Merriweather Sans', Helvetica, Tahoma, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;;"><?php echo $mashiro_logo['text_a']; ?></span>
-									<span class="no" style="font-family: '<?php echo $mashiro_logo['font_name']; ?>', 'Merriweather Sans', Helvetica, Tahoma, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;"><?php echo $mashiro_logo['text_b']; ?></span>
-									<span class="shironeko" style="font-family: '<?php echo $mashiro_logo['font_name']; ?>', 'Merriweather Sans', Helvetica, Tahoma, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;"><?php echo iro_opt('logo_text'); ?><?php echo $mashiro_logo['text_c']; ?></span>
+									<span class="sakuraso"><?php echo $mashiro_logo['text_a']; ?></span>
+									<span class="no"><?php echo $mashiro_logo['text_b']; ?></span>
+									<span class="shironeko"><?php echo iro_opt('logo_text'); ?><?php echo $mashiro_logo['text_c']; ?></span>
 									<rp></rp>
 									<rt class="chinese-font"><?php echo $mashiro_logo['text_secondary']; ?></rt>
 									<rp></rp>
@@ -156,12 +155,17 @@ $mashiro_logo = iro_opt('mashiro_logo');
 			</div>
 		<?php } ?>
 		<div id="page" class="site wrapper">
-			<?php 
-			$cover_type = get_post_meta(get_the_ID(), 'cover_type', true);
-			if ($cover_type == 'hls') {
-				the_video_headPattern(true);
-			} elseif ($cover_type == 'normal') {
-				the_video_headPattern(false);
+			<?php
+			$use_as_thumb = get_post_meta(get_the_ID(), 'use_as_thumb', true); //'true','only',(default)
+			if ($use_as_thumb != 'only') {
+				$cover_type = get_post_meta(get_the_ID(), 'cover_type', true);
+				if ($cover_type == 'hls') {
+					the_video_headPattern(true);
+				} elseif ($cover_type == 'normal') {
+					the_video_headPattern(false);
+				} else {
+					the_headPattern();
+				}
 			} else {
 				the_headPattern();
 			} ?>
