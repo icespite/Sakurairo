@@ -15,19 +15,14 @@ $mashiro_logo = iro_opt('mashiro_logo');
 ?>
 <?php header('X-Frame-Options: SAMEORIGIN'); ?>
 <!DOCTYPE html>
-<!-- 
-            ◢＼　 ☆　　 ／◣
-    　  　∕　　﹨　╰╮∕　　﹨
-    　  　▏　　～～′′～～ 　｜
-    　　  ﹨／　　　　　　 　＼∕
-    　 　 ∕ 　　●　　　 ●　＼
-      ＝＝　○　∴·╰╯　∴　○　＝＝
-    　    ╭──╮　　　　　╭──╮
-  ╔═ ∪∪∪═Mashiro&Hitomi═∪∪∪═╗
--->
 <html <?php language_attributes(); ?>>
 
 <head>
+    <!-- begin fancybox --> 
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <!-- end fancybox -->
 	<link rel="stylesheet" href="https://<?php echo iro_opt('gfonts_api','fonts.loli.net'); ?>/css?family=Noto+Serif|Merriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC<?php echo iro_opt('gfonts_add_name'); ?>" media="all">
 	<meta name="theme-color" content="" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="<?php echo iro_opt('theme_skin_dark')?>" media="(prefers-color-scheme: dark)">
